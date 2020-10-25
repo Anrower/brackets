@@ -1,19 +1,10 @@
 module.exports = function check(str, bracketsConfig) {
-  let n = 0;
-  let bracket;
-  let OpenBrackets = [];
-  let CloseBrackets = [];
-  for (let i = 0; i < str.length; i++) {
-    bracket = str[i];
-    if (bracket === '(' || bracket === '[' || bracket === "{") {
-      OpenBrackets.push(bracket);
-    } else if (bracket === ')' || bracket === ']' || bracket === "}") {
-      CloseBrackets.push(bracket);
+    let brackets = bracketsConfig.map(item => item.join(''));
+    for (let i = 0; i < brackets.length; i++) {
+        if (str.includes(brackets[i])) {
+            str = str.replace(brackets[i], "");
+            i = -1;
+        }
     }
-  }
-  if (OpenBrackets.length === CloseBrackets.length) {
-    return true;
-  } else {
-    return false;
-  }
+    return !str;
 }
